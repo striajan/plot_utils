@@ -503,6 +503,20 @@ def image_poi(img, win_name='ROI definition'):
 # figure settings
 
 
+def grid(x, y, show_ticks_labels=True, color='k', linestyle='-'):
+    """Show grid specified by list of x and y coordinates.
+
+    :type x: numpy.ndarray
+    :type y: numpy.ndarray
+    """
+    ax = plt.gca()
+    ax.set_xticks(x)
+    ax.set_yticks(y)
+    ax.grid(which='major', color=color, linestyle=linestyle)
+    if not show_ticks_labels:
+        hide_ticks_labels()
+
+
 def axes_visibility(visible=True):
     """Show or hide axes of the current plot.
 
@@ -511,6 +525,13 @@ def axes_visibility(visible=True):
     ax = plt.gca()
     ax.get_xaxis().set_visible(visible)
     ax.get_yaxis().set_visible(visible)
+
+
+def hide_ticks_labels():
+    """Hide all x and y ticks labels."""
+    ax = plt.gca()
+    ax.xaxis.set_ticklabels([])
+    ax.yaxis.set_ticklabels([])
 
 
 def fit_image_border(img):
