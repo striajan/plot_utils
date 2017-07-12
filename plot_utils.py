@@ -523,8 +523,7 @@ def axes_visibility(visible=True):
     :type visible: bool
     """
     ax = plt.gca()
-    ax.get_xaxis().set_visible(visible)
-    ax.get_yaxis().set_visible(visible)
+    ax.axis('on' if visible else 'off')
 
 
 def hide_ticks_labels():
