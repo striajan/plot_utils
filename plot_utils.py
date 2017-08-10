@@ -7,26 +7,23 @@ import warnings
 # 2D plotting
 
 
-def point((x, y), *args, **kwargs):
+def point(p, *args, **kwargs):
     """Plot the specified 2D point.
 
-    :type x: int | float
-    :type y: int | float
+    :type p: tuple | list | numpy.ndarray
     :rtype: list[matplotlib.lines.Line2D]
     """
-    return plt.plot(x, y, *args, **kwargs)
+    return plt.plot(p[0], p[1], *args, **kwargs)
 
 
-def line((x1, y1), (x2, y2), *args, **kwargs):
+def line(p1, p2, *args, **kwargs):
     """Plot 2D line specified by its endpoints.
 
-    :type x1: int | float
-    :type y1: int | float
-    :type x2: int | float
-    :type y2: int | float
+    :type p1: tuple | list | numpy.ndarray
+    :type p2: tuple | list | numpy.ndarray
     :rtype: list[matplotlib.lines.Line2D]
     """
-    return plt.plot((x1, x2), (y1, y2), *args, **kwargs)
+    return plt.plot((p1[0], p2[0]), (p1[1], p2[1]), *args, **kwargs)
 
 
 def line_eq(a, b, c, *args, **kwargs):
@@ -144,15 +141,14 @@ def polyvector(pts, *args, **kwargs):
     return line + p1 + p2
 
 
-def circle((x, y), radius, **kwargs):
+def circle(center, radius, **kwargs):
     """Plot circle with the specified center (x, y) and radius.
 
-    :type x: int | float
-    :type y: int | float
+    :type center: tuple | list | numpy.ndarray
     :type radius: int | float
     :rtype: matplotlib.patches.Circle
     """
-    circle = plt.Circle((x, y), radius=radius, **kwargs)
+    circle = plt.Circle(center, radius=radius, **kwargs)
     ax = plt.gcf().gca()
     ax.add_artist(circle)
     return circle
@@ -176,13 +172,12 @@ def rectangle(rect, *args, **kwargs):
     return polygon(pts, *args, **kwargs)
 
 
-def box((x1, y1), (x2, y2), *args, **kwargs):
-    """Plot axes-aligned box specified by its top-left corner (x1,y1) and its
-    bottom-right corner (x2, y2).
+def box(tl, br, *args, **kwargs):
+    """Plot axes-aligned box specified by its top-left and bottom-right corner.
 
     :rtype: list[matplotlib.lines.Line2D]
     """
-    pts = [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
+    pts = [tl, (tl[0], br[1]), br, (br[0], tl[1])]
     return polygon(pts, *args, **kwargs)
 
 
