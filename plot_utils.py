@@ -611,3 +611,23 @@ def save_axis(file_path):
     ext = ax.get_window_extent()
     ext = ext.transformed(fig.dpi_scale_trans.inverted())
     plt.savefig(file_path, bbox_inches=ext)
+
+
+def axis_equal_3d():
+    """Force equal aspect ratio for 3D axis.
+
+    :rtype: matplotlib.axes._subplots.Axes3DSubplot
+    """
+
+    ax = plt.gcf().gca(projection='3d')
+
+    lim = np.vstack((ax.get_xlim(), ax.get_ylim(), ax.get_zlim()))
+
+    c = 0.5 * (lim[:, 0] + lim[:, 1])
+    r = np.max(0.5 * (lim[:, 1] - lim[:, 0]))
+
+    ax.set_xlim(c[0] - r, c[0] + r)
+    ax.set_ylim(c[1] - r, c[1] + r)
+    ax.set_zlim(c[2] - r, c[2] + r)
+
+    return ax
