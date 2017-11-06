@@ -631,3 +631,24 @@ def axis_equal_3d():
     ax.set_zlim(c[2] - r, c[2] + r)
 
     return ax
+
+
+def axis_label_3d(xlab=None, ylab=None, zlab=None):
+    """Assign labels to 3D axes.
+
+    :type xlab: str
+    :type ylab: str
+    :type zlab: str
+    :rtype: matplotlib.axes._subplots.Axes3DSubplot
+    """
+
+    ax = plt.gcf().gca(projection='3d')
+
+    if xlab is not None:
+        ax.set_xlabel(xlab)
+    if ylab is not None:
+        ax.set_ylabel(ylab)
+    if zlab is not None:
+        ax.set_zlabel(zlab)
+
+    return ax
