@@ -318,6 +318,21 @@ def rgb(rgb, max_plot=0, **kwargs):
     return scatter(rgb[:,0], rgb[:,1], rgb[:,2], c=rgb, **kwargs)
 
 
+def quiver(x, y, z, u, v, w, **kwargs):
+    """Plot 3D vectors with origins [x, y, z] and directions [u, v, w].
+
+    :type x: numpy.ndarray
+    :type y: numpy.ndarray
+    :type z: numpy.ndarray
+    :type u: numpy.ndarray
+    :type v: numpy.ndarray
+    :type w: numpy.ndarray
+    :rtype: mpl_toolkits.mplot3d.art3d.Line3DCollection
+    """
+    ax = plt.gcf().gca(projection='3d')
+    return ax.quiver(x, y, z, u, v, w, **kwargs)
+
+
 # plotting start and finish
 
 
