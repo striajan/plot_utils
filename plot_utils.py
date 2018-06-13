@@ -233,6 +233,33 @@ def surfz(z, *args, **kwargs):
     return surf(x, y, z, *args, **kwargs)
 
 
+def plane_eq(a, b, c, d, *args, **kwargs):
+    """Plot 3D plane specified by the equation a*x + b*y + c*z + d = 0. The plotting
+    range is determined automatically from the current x and y limits.
+
+    :type a: int | float
+    :type b: int | float
+    :type c: int | float
+    :type z: int | float
+    :rtype: mpl_toolkits.mplot3d.art3d.Poly3DCollection
+    """
+
+    # save the original limits
+    xlim = plt.xlim()
+    ylim = plt.ylim()
+
+    x, y = np.meshgrid(xlim, ylim)
+    z = (a * x + b * y + d) / -c
+
+    poly = surf(x, y, z, *args, **kwargs)
+
+    # reset the original limits
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+
+    return poly
+
+
 def create_ellipsoid(mean, cov, num_theta, num_phi, **kwargs):
     """Create ellipsoid specified by its mean and covariance matrix.
     The elipsoid is discretized along spherical angles as specified.
