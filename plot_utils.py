@@ -397,7 +397,7 @@ def show(block=True, equal_aspect=False, border_width=0, show_grid=False, close_
                 plt.close(fig)
         fig.canvas.mpl_connect('key_press_event', on_key_pressed)
     if not plt.isinteractive():
-        plt.show(block)
+        plt.show(block=block)
 
 
 # images
