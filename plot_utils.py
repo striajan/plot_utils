@@ -657,13 +657,15 @@ def save_axis(file_path):
     plt.savefig(file_path, bbox_inches=ext)
 
 
-def axis_equal_3d():
+def axis_equal_3d(ax=None):
     """Force equal aspect ratio for 3D axis.
 
+    :type ax: matplotlib.axes._subplots.Axes3DSubplot
     :rtype: matplotlib.axes._subplots.Axes3DSubplot
     """
 
-    ax = plt.gcf().gca(projection='3d')
+    if ax is None:
+        ax = plt.gcf().gca(projection='3d')
 
     lim = np.vstack((ax.get_xlim(), ax.get_ylim(), ax.get_zlim()))
 
@@ -677,16 +679,18 @@ def axis_equal_3d():
     return ax
 
 
-def axis_label_3d(xlab=None, ylab=None, zlab=None):
+def axis_label_3d(xlab=None, ylab=None, zlab=None, ax=None):
     """Assign labels to 3D axes.
 
     :type xlab: str
     :type ylab: str
     :type zlab: str
+    :type ax: matplotlib.axes._subplots.Axes3DSubplot
     :rtype: matplotlib.axes._subplots.Axes3DSubplot
     """
 
-    ax = plt.gcf().gca(projection='3d')
+    if ax is None:
+        ax = plt.gcf().gca(projection='3d')
 
     if xlab is not None:
         ax.set_xlabel(xlab)
