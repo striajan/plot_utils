@@ -1,3 +1,4 @@
+from __future__ import division
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
@@ -42,12 +43,12 @@ def line_eq(a, b, c, *args, **kwargs):
 
     if b != 0:
         x1, x2 = xlim
-        y1 = -(a * x1 + c) / float(b)
-        y2 = -(a * x2 + c) / float(b)
+        y1 = -(a * x1 + c) / b
+        y2 = -(a * x2 + c) / b
     elif a != 0:
         y1, y2 = ylim
-        x1 = -(b * y1 + c) / float(a)
-        x2 = -(b * y2 + c) / float(a)
+        x1 = -(b * y1 + c) / a
+        x2 = -(b * y2 + c) / a
     else:
         raise ValueError('Either a or b needs to be non-zero.')
 
@@ -504,19 +505,19 @@ def imstitch(imgs, margin=0, num_rows=-1, num_cols=-1):
     h, w, c = imgs[0].shape
 
     if num_rows == -1 and num_cols == -1:
-        img_aspect = w / float(h)
+        img_aspect = w / h
         num_rows, num_cols = layout(num_imgs, item_aspect=img_aspect)
     elif num_rows == -1:
-        num_rows = int(np.ceil(num_imgs / float(num_cols)))
+        num_rows = int(np.ceil(num_imgs / num_cols))
     elif num_cols == -1:
-        num_cols = int(np.ceil(num_imgs / float(num_rows)))
+        num_cols = int(np.ceil(num_imgs / num_rows))
 
     h_stitch = num_rows * h + (num_rows - 1) * margin
     w_stitch = num_cols * w + (num_cols - 1) * margin
     img_stitch = np.zeros([h_stitch, w_stitch, c], dtype=imgs[0].dtype)
 
     for i in range(num_imgs):
-        r = (i / num_cols) * (h + margin)
+        r = (i // num_cols) * (h + margin)
         c = (i % num_cols) * (w + margin)
         img_stitch[r:r+h,c:c+w] = imgs[i]
 
